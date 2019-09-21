@@ -1,6 +1,6 @@
 {
   "name": "quickmetrics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Nodejs client for Quickmetrics",
   "main": "index.js",
   "scripts": {
