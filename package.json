@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/quickmetrics/node#readme",
   "dependencies": {
+    "bottleneck": "^2.19.5",
     "request": "^2.88.0"
   }
 }

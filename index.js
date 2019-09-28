@@ -1,42 +1,22 @@
-const request  = require('request');
-const baseUrl  = 'https://qckm.io/json';
+const batching    = require('./batching.js');
 
-module.exports = function (apiKey) {
-  let key = apiKey;
-
-  const callAPI = function(name, value = 1, dimension = null) {
-    if (!name) {
-      throw new Error('Missing required parameter: name');
-    }
-    const form = { name, value, dimension };
-    const formData = JSON.stringify(form);
-
-    try {
-      request({
-        headers: {
-          'X-QM-KEY': key
-        },
-        uri: baseUrl,
-        body: formData,
-        method: 'POST'
-      });
-    } catch (err) {
-      console.log(err);
-      throw new Error(err);
-    }
+module.exports = function ({ apiKey, maxBatchTime = 60, maxBatchSize = 1000 }) {
+  if (!apiKey) {
+    throw new Error('API key is required');
   }
 
+  batching.init({
+    apiKey,
+    maxBatchTime,
+    maxBatchSize
+  });
+
   return {
-    setKey: function (apiKey) {
-      if (!apiKey) {
-        throw new Error('API key is required');
+    event: function (name, value = 1, dimension = null) {
+      if (!name) {
+        throw new Error('Missing required parameter: name');
       }
-
-      key = apiKey;
-    },
-
-    event: function (name, value, dimension) {
-      callAPI(name, value, dimension);
+      batching.add(name, value, dimension);
     }
   }
 }
