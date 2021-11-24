@@ -4,7 +4,7 @@
   "description": "A Nodejs client for Quickmetrics",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
   "dependencies": {
     "bottleneck": "^2.19.5",
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "jest": "^27.3.0"
   }
 }
